@@ -74,6 +74,7 @@ button.ghost:hover{border-color:var(--accent);color:var(--chalk)}
 .crumbs button:hover{color:var(--accent)}
 h2.lec{font-weight:500;font-size:31px;line-height:1.25;margin:2px 0 4px;max-width:20ch}
 .lecmeta{font-family:var(--sans);font-size:13px;color:var(--dim);margin-bottom:26px}
+.lecmeta a{color:inherit;text-underline-offset:2px}
 
 .rail{display:flex;gap:6px;margin-bottom:26px;flex-wrap:wrap}
 .rail button{
@@ -153,6 +154,13 @@ svg.fig{display:block;max-width:100%;height:auto;touch-action:none}
 .opt.right{border-color:var(--ok)}
 .opt.wrong{border-color:var(--bad);opacity:.75}
 .opt:disabled{cursor:default}
+.hintbtn{font:inherit;font-family:var(--sans);font-size:13px;color:var(--dim);background:none;border:0;padding:0 0 10px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.hint{font-family:var(--sans);font-size:14px;color:var(--dim);margin:-2px 0 12px!important;max-width:64ch}
+.reflection{margin-top:22px;border-top:1px solid var(--rule);padding-top:14px;max-width:70ch}
+.reflection summary{font-family:var(--sans);font-size:14px;color:var(--accent);cursor:pointer}
+.reflection p{font-size:15px;margin:11px 0 8px}
+.reflection textarea{display:block;width:100%;min-height:92px;resize:vertical;font:inherit;font-size:15px;line-height:1.45;background:var(--board);color:var(--chalk);border:1px solid var(--rule);border-radius:3px;padding:10px}
+.note-status{display:block;font-family:var(--sans);font-size:12px;color:var(--dim);min-height:1.4em;margin-top:4px}
 
 nav.pager{display:flex;gap:10px;align-items:center;margin-top:26px}
 nav.pager .spacer{margin-left:auto;font-family:var(--sans);font-size:13px;color:var(--dim)}

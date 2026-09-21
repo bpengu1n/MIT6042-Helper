@@ -6,9 +6,13 @@ const gcd=(a,b)=>{a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a;}
 
 /* progress: per-viewer convenience only */
 const STORE='mcs6042.progress.v1';
+const NOTES_STORE='mcs6042.notes.v1';
 let progress={};
+let notes={};
 try{progress=JSON.parse(localStorage.getItem(STORE)||'{}')||{};}catch(e){progress={};}
+try{notes=JSON.parse(localStorage.getItem(NOTES_STORE)||'{}')||{};}catch(e){notes={};}
 function save(){try{localStorage.setItem(STORE,JSON.stringify(progress));}catch(e){}}
+function saveNotes(){try{localStorage.setItem(NOTES_STORE,JSON.stringify(notes));}catch(e){}}
 function mark(lec,step){
   const k=String(lec); progress[k]=progress[k]||[];
   if(!progress[k].includes(step)){progress[k].push(step);save();}

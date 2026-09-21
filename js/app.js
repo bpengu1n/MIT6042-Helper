@@ -14,10 +14,10 @@ let view={screen:'map',lec:1,step:0};
 function renderMap(){
   const app=$('#app'); app.innerHTML='';
   const lede=el('div','lede');
-  lede.innerHTML=`<p class="big">Twenty-five lectures of discrete mathematics, taken one claim at a time.</p>
-  <p>Each lecture here is four screens: the central idea, a proof worked all the way through, a widget you can push on until the idea stops being abstract, and one question that is easy to get wrong for an interesting reason.</p>`;
+  lede.innerHTML=`<p class="big">Twenty-five lectures of discrete math, unpacked one idea at a time.</p>
+  <p>Each stop gives you the big idea, a worked argument, something to manipulate, and a short check. You do not need to read it all in order—use the arrows when you want to see what a topic builds on.</p>`;
   app.append(lede);
-  app.append(el('p','maphint','Pick a lecture. Arrows point from a topic to the ones that lean on it; each lecture page lists everything it draws on.'));
+  app.append(el('p','maphint','Pick a lecture. An arrow means “helpful background for”; each lecture also names the ideas it assumes.'));
 
   const box=el('div','mapbox');
   const svg=svgEl('svg',{viewBox:'0 0 960 690',role:'group','aria-label':'Lecture prerequisite map'});
@@ -50,7 +50,15 @@ function renderMap(){
 
   const total=LECTURES.reduce((s,L)=>s+L.steps.length,0);
   const seen=LECTURES.reduce((s,L)=>s+stepsSeen(L.id),0);
-  app.append(el('p','maphint',seen?`${seen} of ${total} screens visited.`:'Nothing visited yet — lecture 1 is the place to start.'));
+  const progressLine=el('p','maphint',seen?`${seen} of ${total} screens visited.`:'New here? Start with Lecture 1, then let the arrows guide you.');
+  app.append(progressLine);
+}
+
+function openQuickReview(){
+  const checks=LECTURES.flatMap(L=>L.steps.map((step,index)=>({L,step,index})).filter(x=>x.step.kind==='Check'));
+  const unseen=checks.filter(x=>!(progress[String(x.L.id)]||[]).includes(x.index));
+  const pick=(unseen.length?unseen:checks)[Math.floor(Math.random()*(unseen.length?unseen.length:checks.length))];
+  view={screen:'lec',lec:pick.L.id,step:pick.index}; render(); window.scrollTo(0,0);
 }
 
 function renderLecture(){
@@ -64,7 +72,10 @@ function renderLecture(){
   cr.append(back, document.createTextNode(' · Lecture '+L.id));
   app.append(cr);
   app.append(el('h2','lec',L.title));
-  app.append(el('p','lecmeta',L.prereqs.length?'Leans on: '+L.prereqs.map(p=>LECTURES.find(x=>x.id===p).short).join(', '):'No prerequisites — this is the entry point.'));
+  const prereqs=L.prereqs.length?'Helpful background: '+L.prereqs.map(p=>LECTURES.find(x=>x.id===p).short).join(', '):'No prerequisites—this is a good place to begin.';
+  const meta=el('p','lecmeta',prereqs+' · ');
+  const source=document.createElement('a'); source.href='https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/video_galleries/video-lectures/'; source.target='_blank'; source.rel='noopener'; source.textContent='Official MIT lecture list ↗';
+  meta.append(source); app.append(meta);
 
   const rail=el('div','rail');
   L.steps.forEach((st,i)=>{
@@ -80,6 +91,7 @@ function renderLecture(){
   if(S.html) card.append(el('div',null,S.html));
   if(S.widget && WIDGETS[S.widget]) WIDGETS[S.widget](card);
   if(S.kind==='Check') buildCheck(card,S);
+  if(S.kind==='Idea'||S.kind==='Example') buildReflection(card,L,S);
   app.append(card);
 
   const pager=el('nav','pager');
@@ -103,10 +115,25 @@ function renderLecture(){
   app.append(pager);
 }
 
+function buildReflection(card,L,S){
+  const box=el('details','reflection');
+  const summary=document.createElement('summary');
+  summary.textContent=S.kind==='Idea'?'Pause and put it in your own words':'Pause before the next screen';
+  const prompt=el('p',null,S.kind==='Idea'?'In one or two sentences: what problem does this idea solve, and what is the key condition?':'Cover the proof for a moment. What is the first move, and what fact makes that move legitimate?');
+  const area=document.createElement('textarea'); area.placeholder='A rough note is enough. This stays in your browser.'; area.value=notes[`${L.id}:${S.kind}`]||''; area.setAttribute('aria-label',`Your notes for ${L.title}, ${S.kind}`);
+  const status=el('span','note-status','');
+  area.addEventListener('input',()=>{notes[`${L.id}:${S.kind}`]=area.value;saveNotes();status.textContent='Saved locally';});
+  box.append(summary,prompt,area,status); card.append(box);
+}
+
 function buildCheck(card,S){
   card.append(el('p',null,S.q));
   const box=el('div');
   const fb=el('div','readout'); fb.style.display='none';
+  const hint=el('button','hintbtn','Need a nudge?');
+  const hintText=el('p','hint'); hintText.hidden=true;
+  hint.onclick=()=>{hintText.hidden=!hintText.hidden; hint.textContent=hintText.hidden?'Need a nudge?':'Hide hint';};
+  hintText.textContent='Go back to the definition or theorem named on this page. The correct choice follows from one necessary condition, not from a pattern in the examples.';
   S.options.forEach((o,i)=>{
     const b=el('button','opt',o);
     b.onclick=()=>{
@@ -117,8 +144,9 @@ function buildCheck(card,S){
     };
     box.append(b);
   });
-  card.append(box,fb);
+  card.append(hint,hintText,box,fb);
 }
 
 function render(){ view.screen==='map'?renderMap():renderLecture(); }
+$('#reviewbtn').addEventListener('click',openQuickReview);
 render();

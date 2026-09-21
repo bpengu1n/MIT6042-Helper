@@ -1,6 +1,6 @@
 # 6.042J walkthrough
 
-An interactive, step-by-step companion to MIT's *Mathematics for Computer Science* (6.042J, Fall 2010). Each of the 25 lectures is four screens: the core idea, a fully worked proof or example, a hands-on widget, and one check question.
+An interactive study companion to MIT's *Mathematics for Computer Science* (6.042J, Fall 2010). Each of the 25 lectures has four short stops: the key idea, a worked proof or example, a hands-on widget, and a check question. Idea and example screens include an optional local scratchpad; the header’s **Quick review** button picks a check question at random.
 
 Plain HTML, CSS and JavaScript. No build step, no dependencies, no framework.
 
@@ -45,7 +45,7 @@ To add or edit a lecture, change its entry in `js/lectures.js`. A step with `wid
 
 ## Notes
 
-- Progress and theme choice are kept in the visitor's own `localStorage`. Nothing leaves the browser.
+- Progress, theme choice, and scratchpad notes are kept in the visitor's own `localStorage`. Nothing leaves the browser.
 - Fonts load from Google Fonts. Everything else is local.
 - `.nojekyll` stops GitHub Pages from running Jekyll over the site.
 
