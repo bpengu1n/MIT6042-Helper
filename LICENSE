@@ -1,0 +1,63 @@
+This repository is dual-licensed. The code and the written educational content
+are covered by different licenses, as set out below.
+
+==============================================================================
+1. Code — MIT License
+==============================================================================
+
+Applies to: index.html, css/, js/core.js, js/widgets.js, js/app.js, scripts/
+(including the interactive widgets and all page structure and styling).
+
+Copyright (c) 2026 bpengu1n
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+==============================================================================
+2. Educational content — CC BY-NC-SA 4.0
+==============================================================================
+
+Applies to: js/lectures.js (the lecture explanations, worked examples and
+check questions), and the explanatory prose shown by the widgets in
+js/widgets.js.
+
+Copyright (c) 2026 bpengu1n
+
+This content is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International License.
+Full legal code: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+You may share and adapt it for non-commercial purposes, provided you give
+appropriate credit and distribute your contributions under the same license.
+
+==============================================================================
+3. Third-party material
+==============================================================================
+
+This project is an independent companion to MIT OpenCourseWare 6.042J,
+"Mathematics for Computer Science" (Fall 2010), taught by Prof. Tom Leighton
+and Dr. Marten van Dijk. It is not affiliated with or endorsed by MIT.
+
+The course, including the lecture videos retrieved by
+scripts/download-6042j.sh, is (c) Massachusetts Institute of Technology and
+is licensed by MIT OpenCourseWare under CC BY-NC-SA 4.0:
+https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/
+No course videos or other MIT course files are included in this repository.
+
+Fonts (Spectral, Archivo) are loaded from Google Fonts at runtime and are
+licensed under the SIL Open Font License 1.1.
